@@ -15,6 +15,12 @@
 
 You do **not** need Node, Neon, Privy, or a local Worker to evaluate the product. Use the live site, docs, Free API key, and shared Test Merchant first. Clone and run locally only if you want to inspect or modify the source.
 
+### Product demo
+
+[![Watch the Rezva product demo on YouTube](https://img.youtube.com/vi/zhbiL9q0wGo/maxresdefault.jpg)](https://youtu.be/zhbiL9q0wGo)
+
+[Watch on YouTube](https://youtu.be/zhbiL9q0wGo)
+
 ---
 
 **Pay people the way you already know them: phone, email, QR, a shop name, ENS, Base Names, SNS (`.sol`), or Unstoppable Domains. Compatible wallets turn that into a crypto payment.**
