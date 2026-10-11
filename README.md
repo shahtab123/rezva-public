@@ -9,6 +9,8 @@
 | **Website** | [https://www.rezva.xyz](https://www.rezva.xyz) |
 | **Docs overview** | [https://www.rezva.xyz/docs/introduction/overview](https://www.rezva.xyz/docs/introduction/overview) |
 | **Dashboard (Free API + Test Merchant)** | [https://www.rezva.xyz/dashboard/free-api](https://www.rezva.xyz/dashboard/free-api) |
+| **Test wallet: Mobile (Expo / Android)** | [https://github.com/shahtab123/mobilewallet_rezva](https://github.com/shahtab123/mobilewallet_rezva) |
+| **Test wallet: Rabby (Chrome)** | [https://github.com/shahtab123/rabby_chrome_rezva](https://github.com/shahtab123/rabby_chrome_rezva) |
 | **Production API** | [https://universal-payment-api.sabrishahtab.workers.dev](https://universal-payment-api.sabrishahtab.workers.dev) |
 
 You do **not** need Node, Neon, Privy, or a local Worker to evaluate the product. Use the live site, docs, Free API key, and shared Test Merchant first. Clone and run locally only if you want to inspect or modify the source.
@@ -45,7 +47,10 @@ More detail: [Product overview](https://www.rezva.xyz/docs/introduction/overview
 
 1. Open [docs overview](https://www.rezva.xyz/docs/introduction/overview).
 2. Sign in at [dashboard Free API](https://www.rezva.xyz/dashboard/free-api), generate a key, and use the shared Test Merchant QR.
-3. Optional reference wallets: [mobilewallet_rezva](https://github.com/shahtab123/mobilewallet_rezva) · [rabby_chrome_rezva](https://github.com/shahtab123/rabby_chrome_rezva).
+3. Test with a reference wallet (Send + QR resolve against the Free API / Test Merchant):
+   - **Mobile wallet:** [github.com/shahtab123/mobilewallet_rezva](https://github.com/shahtab123/mobilewallet_rezva)
+   - **Rabby (Chrome):** [github.com/shahtab123/rabby_chrome_rezva](https://github.com/shahtab123/rabby_chrome_rezva)
+   - Docs list: [Test wallets](https://www.rezva.xyz/docs/reference/compatible-wallets)
 
 ## Resolve against production
 
