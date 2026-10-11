@@ -1,70 +1,125 @@
 # Rezva
 
-Wallet-agnostic payment-identifier resolution into crypto payment destinations.
+**Pay people the way you already know them — phone, email, QR, or a name — and let wallets turn that into a crypto payment.**
 
-Resolve emails, phones, QR values, custom identifiers, ENS, Base Names, SNS (`.sol`), and Unstoppable Domains into verified payment options for compatible wallets.
+Rezva is a resolution layer. It does **not** hold funds or send transactions. A wallet asks Rezva “who is this identifier?” and gets back a verified destination (network, asset, address). The wallet then pays on-chain as usual.
 
-## Quick start
+## What it does
+
+1. Someone shares a familiar identifier (phone, email, payment QR, shop name, ENS, and more).
+2. A compatible wallet calls Rezva `POST /v1/resolve`.
+3. Rezva returns status + payment options the wallet can show before signing.
+
+### Identifiers Rezva can resolve
+
+| Kind | Examples |
+|---|---|
+| Registry identifiers | Phone, email, national QR strings, merchant IDs, custom values |
+| Provider namespaces | Names like `coffee.rabby` owned by a wallet provider |
+| Universal Name Resolution | ENS (`.eth`), Base Names (`.base`), SNS (`.sol`), Unstoppable Domains |
+
+### Who uses it
+
+- **Businesses & users** — apply in the dashboard, claim a name, register identifiers and payment destinations.
+- **Wallet providers** — integrate resolve (Free API for prototypes, approved provider key for production).
+- **Operators** — review applications and enforce protocol rules in admin.
+
+## Demo
+
+| | |
+|---|---|
+| Production API | https://universal-payment-api.sabrishahtab.workers.dev |
+| Free API + Test Merchant | Dashboard → Free API (shared Base Sepolia USDC demo) |
+
+## Run locally
+
+**Requirements:** Node.js 20+, npm, a Neon Postgres database, and a Privy app for dashboard login.
 
 ```bash
 npm install
 copy .env.example .env.local
+# Fill DATABASE_URL, NEXT_PUBLIC_PRIVY_APP_ID, PRIVY_APP_SECRET (see .env.example)
 npm run build
+npm run db:migrate:neon
 npm run dev
 ```
 
-| URL | Service |
+When both services are up you should see `✓ API ready` and `✓ Website ready`.
+
+| URL | What you’ll see |
 |---|---|
-| http://127.0.0.1:8787 | API (registry + resolve) |
-| http://localhost:3000 | Website (marketing, docs, dashboard) |
-| http://localhost:3000/dashboard | Business / Users + Wallet Provider console |
-| http://localhost:3000/admin | Admin console |
+| http://127.0.0.1:8787 | Protocol API (registry + resolve) |
+| http://localhost:3000 | Marketing site + product docs |
+| http://localhost:3000/dashboard | Business / Users and Wallet Provider console |
+| http://localhost:3000/admin | Operator console (default local login: `admin` / `admin`) |
 
-`npm run dev` syncs `.env.local` into `registry/.dev.vars` and starts the API + website.
+`npm run dev` copies root `.env.local` into `registry/.dev.vars` for the Worker.
 
-## Packages
+## Project layout
 
 ```text
-protocol/           Shared types / contracts
-identifier-types/   Normalization & validation
-external-naming/    ENS / SNS / Base Names / Unstoppable Domains
-sdk/                Client library for wallets
-registry/           Cloudflare Worker API
-resolver/           Resolve surface (same worker in dev)
-website/            Next.js marketing, docs, dashboard, admin
+website/            Next.js — marketing, docs, dashboard, admin
+registry/           Cloudflare Worker — resolve + registry API
+resolver/           Resolve package (same API surface)
+protocol/           Shared types and contracts
+identifier-types/   Normalize / validate identifier values
+external-naming/    ENS, Base Names, SNS, Unstoppable Domains
+sdk/                TypeScript client for wallets
+scripts/            Local dev and migrate helpers
 ```
 
-## Environment
+## Commands
 
-Copy `.env.example` → `.env.local` and fill in:
-
-- `DATABASE_URL` — Neon PostgreSQL
-- `NEXT_PUBLIC_PRIVY_APP_ID` / `PRIVY_APP_SECRET` — dashboard auth
-- `DEV_PROVIDER_KEY` / `DASHBOARD_SERVICE_KEY` / `OPERATOR_API_KEY` — local defaults work for demos
-- Optional: Ethereum / Base / Polygon / Solana RPC URLs for Universal Name Resolution
-
-See comments in `.env.example` for production Worker settings.
-
-## Useful commands
-
-| Command | Description |
+| Command | Purpose |
 |---|---|
 | `npm run dev` | Start API + website |
 | `npm run build` | Build shared packages |
 | `npm run typecheck` | Typecheck packages |
-| `npm run db:migrate:neon` | Apply Postgres schema |
-| `npm run deploy:api` | Deploy Cloudflare Worker |
+| `npm run db:migrate:neon` | Apply Postgres schema (once per database) |
+| `npm run deploy:api` | Deploy the API Worker to Cloudflare |
 
-## API overview
+## Resolve in one call
 
-| Endpoint | Purpose |
+```bash
+curl -X POST https://universal-payment-api.sabrishahtab.workers.dev/v1/resolve \
+  -H "Authorization: Bearer <free-or-provider-api-key>" \
+  -H "Content-Type: application/json" \
+  -d "{\"type\":\"custom\",\"value\":\"rezva-test-merchant\"}"
+```
+
+Or with the SDK:
+
+```ts
+import { ResolverClient } from "@universal-payment/sdk";
+
+const resolver = new ResolverClient({
+  baseUrl: "https://universal-payment-api.sabrishahtab.workers.dev",
+  apiKey: process.env.REZVA_API_KEY!,
+});
+
+const result = await resolver.resolve({
+  type: "custom",
+  value: "rezva-test-merchant",
+});
+```
+
+Only pay when `status === "active"` and a payment option has `payment_ready: true`.
+
+## Environment
+
+All local config lives in **one file**: copy `.env.example` → `.env.local`.
+
+Minimum to run the dashboard + API:
+
+| Variable | Needed for |
 |---|---|
-| `POST /v1/resolve` | Resolve identifier → payment options |
-| `GET /v1/identifier-types` | Discover supported types |
-| `POST /v1/identifiers` | Register identifier |
-| `POST /v1/names` | Register native name |
-| `GET /health` | Health check |
+| `DATABASE_URL` | Neon Postgres (required) |
+| `NEXT_PUBLIC_PRIVY_APP_ID` | Dashboard sign-in |
+| `PRIVY_APP_SECRET` | Server-side session verification |
+| `NEXT_PUBLIC_API_URL` | Website → API base URL (local default is fine) |
+
+Local `dev-*` keys in `.env.example` are enough for demos. For production Workers, use strong secrets and set `ENVIRONMENT=production` — details are commented in `.env.example`.
 
 ## License
 
-Private / hackathon submission. See repository owner for terms.
+Hackathon / public submission. Contact the repository owner for terms.
