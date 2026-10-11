@@ -1,0 +1,54 @@
+name = "universal-payment-api"
+main = "src/index.ts"
+compatibility_date = "2026-08-01"
+# Buffer / Node builtins needed by @unstoppabledomains/resolution and SNS SDK.
+compatibility_flags = ["nodejs_compat"]
+
+[[d1_databases]]
+binding = "DB"
+database_name = "rezva-registry"
+migrations_dir = "migrations"
+
+# Local defaults (overridable by registry/.dev.vars). Production secrets come from
+# `npm run deploy:api` → registry/.prod.vars. Keep API keys out of [vars] so deploys
+# cannot wipe remote secrets with weak placeholders — declare them under [secrets].
+[vars]
+REGISTRATION_SAFETY_SECONDS = "0"
+UPDATE_SAFETY_SECONDS = "0"
+REMOVAL_COOLDOWN_SECONDS = "300"
+RESOLVER_URL = "https://universal-payment-api.sabrishahtab.workers.dev/v1/resolve"
+PUBLIC_RESOLVER_URL = "https://universal-payment-api.sabrishahtab.workers.dev/v1/resolve"
+# Shared protocol demo merchant; never replace this with a per-user wallet.
+TEST_MERCHANT_WALLET = "0xa1b1c36bcAA6e6f89f409124220f79A049843a17"
+TEST_MERCHANT_IDENTIFIER = "rezva-test-merchant"
+TEST_MERCHANT_USDC_CONTRACT = "0x036CbD53842c5426634e7929541eC2318f3dCF7e"
+BASE_SEPOLIA_RPC_URL = "https://sepolia.base.org"
+ETHEREUM_RPC_URL = "https://0xrpc.io/eth"
+BASE_RPC_URL = "https://mainnet.base.org"
+POLYGON_RPC_URL = "https://polygon-bor-rpc.publicnode.com"
+SOLANA_RPC_URL = "https://api.mainnet-beta.solana.com"
+
+# Values supplied locally via registry/.dev.vars and in prod via --secrets-file.
+[secrets]
+required = [
+  "DATABASE_URL",
+  "UPSTASH_REDIS_REST_URL",
+  "UPSTASH_REDIS_REST_TOKEN",
+  "ENVIRONMENT",
+  "DEV_PROVIDER_KEY",
+  "DASHBOARD_SERVICE_KEY",
+  "DASHBOARD_PROVIDER_API_KEY",
+  "OPERATOR_API_KEY",
+  "OPERATOR_RECLAIM_DUAL_TOKEN",
+  "CONTROLLER_AUTH_MODE",
+  "CONTROLLER_AUTH_HMAC_SECRET",
+]
+
+[dev]
+# 0.0.0.0 so phones on the same Wi‑Fi can hit http://<PC-LAN-IP>:8787
+# (127.0.0.1 alone is only reachable from this machine - Rabby works, Expo Go does not.)
+ip = "0.0.0.0"
+port = 8787
+
+[triggers]
+crons = ["*/2 * * * *"]

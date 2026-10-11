@@ -1,0 +1,43 @@
+/* Marketing brand accent: pink (shared --orange token remapped) */
+.marketing-root {
+  --orange: #ff2d6a;
+  --orange-soft: #ffe6ef;
+  --pink: #ff2d6a;
+  --pink-bright: #ff5c8a;
+  --pink-deep: #c4124a;
+}
+
+.marketing-root ::selection {
+  background: #ff2d6a;
+  color: #fff;
+}
+
+.marketing-root .button-primary {
+  background: #ff2d6a;
+  box-shadow: 0 8px 24px rgba(255, 45, 106, 0.18);
+}
+
+.marketing-root .button-primary:hover {
+  background: #e01958;
+}
+
+.marketing-root .button-dark:hover {
+  background: #ff2d6a;
+}
+
+.marketing-root .desktop-nav a:hover,
+.marketing-root .dashboard-link:hover,
+.marketing-root .header-secondary-nav a:hover,
+.marketing-root .mobile-nav a:hover,
+.marketing-root .mobile-nav a:focus-visible {
+  color: #ff2d6a;
+}
+
+.marketing-root .site-header {
+  border-color: rgba(255, 45, 106, 0.22);
+}
+
+.marketing-root .brand-mark,
+.marketing-root .site-header-brand-mark {
+  box-shadow: 2px 2px 0 rgba(255, 45, 106, 0.35);
+}

@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 320" role="img" aria-label="Phone identifiers">
+  <rect width="1200" height="320" fill="#0f172a"/>
+  <rect x="72" y="96" width="200" height="128" rx="22" fill="#0284c7"/>
+  <text x="118" y="178" fill="#ffffff" font-family="Georgia, serif" font-size="64" font-weight="700">06</text>
+  <text x="320" y="148" fill="#ffffff" font-family="system-ui, sans-serif" font-size="40" font-weight="700">Phone identifiers</text>
+  <text x="320" y="196" fill="#bae6fd" font-family="ui-monospace, monospace" font-size="22">pay a number already in contacts</text>
+  <!-- Phone handset -->
+  <path
+    d="M930 130c18-18 46-18 64 0l18 18c10 10 10 26 0 36l-16 16c-6 6-6 14 0 20l34 34c6 6 14 6 20 0l16-16c10-10 26-10 36 0l18 18c18 18 18 46 0 64l-10 10c-28 28-78 34-128 10-42-20-78-56-98-98-24-50-18-100 10-128l10-10z"
+    fill="none"
+    stroke="#38bdf8"
+    stroke-width="8"
+    stroke-linejoin="round"
+  />
+</svg>

@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 320" role="img" aria-label="Business payment links">
+  <rect width="1200" height="320" fill="#2a1808"/>
+  <rect x="72" y="96" width="200" height="128" rx="22" fill="#d97706"/>
+  <text x="118" y="178" fill="#ffffff" font-family="Georgia, serif" font-size="64" font-weight="700">04</text>
+  <text x="320" y="148" fill="#ffffff" font-family="system-ui, sans-serif" font-size="40" font-weight="700">Business payment links</text>
+  <text x="320" y="196" fill="#fde68a" font-family="ui-monospace, monospace" font-size="22">share a link, not a long address</text>
+  <!-- Chain link -->
+  <rect x="900" y="118" width="88" height="52" rx="26" fill="none" stroke="#fbbf24" stroke-width="10" transform="rotate(-35 944 144)"/>
+  <rect x="968" y="150" width="88" height="52" rx="26" fill="none" stroke="#fbbf24" stroke-width="10" transform="rotate(-35 1012 176)"/>
+</svg>

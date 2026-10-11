@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 320" role="img" aria-label="Email identifiers">
+  <rect width="1200" height="320" fill="#0b1f3a"/>
+  <rect x="72" y="96" width="200" height="128" rx="22" fill="#3b82f6"/>
+  <text x="118" y="178" fill="#ffffff" font-family="Georgia, serif" font-size="64" font-weight="700">02</text>
+  <text x="320" y="148" fill="#ffffff" font-family="system-ui, sans-serif" font-size="40" font-weight="700">Email identifiers</text>
+  <text x="320" y="196" fill="#b7d4ff" font-family="ui-monospace, monospace" font-size="22">pay to an inbox people already use</text>
+  <!-- Envelope -->
+  <rect x="880" y="118" width="200" height="130" rx="14" fill="#ffffff" fill-opacity="0.08" stroke="#93c5fd" stroke-width="5"/>
+  <path d="M895 138 L980 198 L1065 138" fill="none" stroke="#93c5fd" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M895 228 L955 178" fill="none" stroke="#93c5fd" stroke-width="5" stroke-linecap="round"/>
+  <path d="M1065 228 L1005 178" fill="none" stroke="#93c5fd" stroke-width="5" stroke-linecap="round"/>
+</svg>

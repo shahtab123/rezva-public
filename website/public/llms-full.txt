@@ -1,0 +1,185 @@
+# Rezva - LLM implementation reference
+
+## Purpose
+
+Rezva is a resolution layer. It maps a familiar identifier (for example a
+phone number, email, QR value, or custom test identifier) to one or more
+crypto payment destinations. Rezva is not a wallet, exchange, custodian,
+payment processor, or blockchain watcher.
+
+## Resolver API
+
+Base URL is deployment-specific. The canonical operation is:
+
+```http
+POST /v1/resolve
+Authorization: Bearer <approved-provider-key-or-free-resolver-key>
+Content-Type: application/json
+
+{"type":"custom","value":"rezva-test-merchant"}
+```
+
+A wallet must accept a response only when both `status` is `active` and
+`payment_ready` is `true`. Select a compatible `payment_options` entry and
+show its `chain`, `asset`, `address`, `token_contract`,
+`network_identifier`, amount limits, and expiration before asking the user to
+confirm.
+
+```json
+{
+  "protocol_version": "1",
+  "status": "active",
+  "payment_ready": true,
+  "identifier": {"type": "custom", "value": "rezva-test-merchant"},
+  "payment_options": [
+    {
+      "chain": "base",
+      "asset": "USDC",
+      "address": "0x...",
+      "token_contract": "0x...",
+      "network_identifier": "eip155:84532",
+      "payment_ready": true
+    }
+  ]
+}
+```
+
+Do not send while the status is `pending`, `update_pending`, `suspended`,
+`removed`, or `revoked`. Treat `payment_ready: false` as non-payable.
+
+## QR to payment flow
+
+1. Scan the QR using the wallet's QR reader.
+2. Parse the deterministic JSON payload: `resolver_url`, `type`, and `value`.
+3. POST `{type, value}` to `resolver_url` with the Free API key or approved provider key.
+4. Display the verified payment destination and safety metadata.
+5. Ask the user to confirm chain, asset, amount, token contract, and recipient.
+6. Sign and broadcast the transaction in the wallet.
+7. Wait for the chain receipt and show the wallet's confirmed result.
+
+The official Test Merchant is a protocol demo merchant. Every developer
+receives the same persistent identifier, destination, and QR. It must never be
+created once per Free API user.
+
+## Test wallets (reference clients)
+
+- Mobile wallet (Expo / Android): https://github.com/shahtab123/mobilewallet_rezva
+- Rabby (Chrome clone): https://github.com/shahtab123/rabby_chrome_rezva
+
+Docs: /docs/reference/compatible-wallets and /docs/dashboard/free-api
+
+## TypeScript SDK
+
+```ts
+import { ResolverClient } from "@universal-payment/sdk";
+
+const resolver = new ResolverClient({
+  baseUrl: "https://api.example.com",
+  apiKey: process.env.REZVA_FREE_API_KEY,
+});
+
+const resolved = await resolver.resolve({
+  type: "custom",
+  value: "rezva-test-merchant",
+});
+
+if (resolved.status !== "active" || !resolved.payment_ready) {
+  throw new Error("Destination is not payment-ready");
+}
+
+const option = resolved.payment_options.find(
+  (candidate) => candidate.payment_ready,
+);
+if (!option) throw new Error("No payable destination");
+```
+
+## Python / HTTP
+
+```python
+import os
+import requests
+
+response = requests.post(
+    "https://api.example.com/v1/resolve",
+    headers={"Authorization": f"Bearer {os.environ['REZVA_FREE_API_KEY']}"},
+    json={"type": "custom", "value": "rezva-test-merchant"},
+)
+response.raise_for_status()
+resolved = response.json()
+assert resolved["status"] == "active"
+assert resolved["payment_ready"] is True
+```
+
+There is currently a TypeScript SDK. Python integrations should use the stable
+HTTP contract until an official Python package is released.
+
+## Registry and namespace operations
+
+Dashboard Business / Users registrations are capped at 2 identifiers per
+controller. Existing identifiers remain; new dashboard creates are blocked at
+the limit. Approved wallet providers that offer Merchant Setup set their own
+per-controller limits on API registration.
+
+These operations require an approved provider key. Mutating identifier
+resources also require controller headers and controller authorization:
+
+```http
+GET  /v1/identifier-types
+GET  /v1/identifiers/{type}/{value}/availability
+POST /v1/identifiers
+GET  /v1/identifiers/{id}
+PATCH /v1/identifiers/{id}
+DELETE /v1/identifiers/{id}
+POST /v1/identifiers/{id}/emergency-suspend
+GET  /v1/identifiers/{id}/history
+```
+
+```http
+POST /v1/namespaces
+GET  /v1/namespaces
+GET  /v1/namespaces/{namespace}
+GET  /v1/namespaces/{namespace}/usage
+GET  /v1/namespaces/{namespace}/names/{label}/availability
+POST /v1/namespaces/{namespace}/names
+GET  /v1/namespaces/{namespace}/names/{label}
+PATCH /v1/namespaces/{namespace}/names/{label}
+DELETE /v1/namespaces/{namespace}/names/{label}
+```
+
+Namespace names resolve through the same resolver using
+`{"type":"provider_name","value":"alice.redotpay"}`. Free API keys cannot call
+these management endpoints.
+
+## Complaints
+
+Approved providers submit complaints with:
+
+```http
+POST /v1/complaints
+Authorization: Bearer <approved-provider-key>
+Content-Type: application/json
+
+{"target_type":"phone","target_value":"+15551234567","reason":"impersonation","description":"Detailed evidence of impersonation","evidence":[]}
+```
+
+The target must identify an existing mapping. Complaint records move through
+`SUBMITTED`, `UNDER_REVIEW`, `RESOLVED`, or `REJECTED`.
+
+## Payment confirmation
+
+The integrated wallet is responsible for signing, broadcasting, and displaying
+its transaction result. A protocol demo environment may expose a server-side
+payment detector for a confirmed Base Sepolia USDC transaction. A payment
+record contains transaction hash, network, asset, amount, sender, recipient,
+timestamp, confirmation status, block number, and a testnet flag.
+
+Never mark a payment received from a client assertion alone. Verify the
+transaction receipt, successful status, token contract, `Transfer` event,
+recipient, amount, and network through RPC.
+
+## Access boundaries
+
+Free API keys are limited to resolver requests and cannot register, update,
+suspend, remove identifiers, or access operator APIs. Production wallet
+providers use approved provider credentials for resolver access and optional
+merchant setup.

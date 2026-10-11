@@ -1,0 +1,31 @@
+{
+  "name": "@universal-payment/external-naming",
+  "version": "0.1.0",
+  "private": false,
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./namespaces": {
+      "types": "./dist/namespaces.d.ts",
+      "import": "./dist/namespaces.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "@bonfida/spl-name-service": "^4.0.1",
+    "@solana/web3.js": "^1.99.0",
+    "@universal-payment/protocol": "0.1.0",
+    "viem": "^2.55.10"
+  },
+  "devDependencies": {
+    "typescript": "^5"
+  }
+}

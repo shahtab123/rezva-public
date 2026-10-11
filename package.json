@@ -1,0 +1,34 @@
+{
+  "name": "rezva",
+  "version": "0.1.0",
+  "private": true,
+  "workspaces": [
+    "protocol",
+    "identifier-types",
+    "external-naming",
+    "sdk",
+    "registry",
+    "resolver",
+    "website"
+  ],
+  "scripts": {
+    "build": "node scripts/generate-restricted-names.mjs && npm run build -w @universal-payment/protocol && npm run build -w @universal-payment/identifier-types && npm run build -w @universal-payment/external-naming && npm run build -w @universal-payment/sdk",
+    "generate:restricted-names": "node scripts/generate-restricted-names.mjs",
+    "dev": "node scripts/dev.mjs --skip-build",
+    "dev:build": "node scripts/dev.mjs",
+    "dev:fast": "node scripts/dev.mjs --skip-build",
+    "dev:api": "node scripts/dev.mjs --api-only",
+    "dev:website": "npm run dev -w @rezva/website",
+    "dev:backend": "node scripts/dev.mjs --api-only",
+    "db:migrate:neon": "node scripts/migrate-neon.mjs",
+    "typecheck": "npm run typecheck -w @universal-payment/protocol && npm run typecheck -w @universal-payment/identifier-types && npm run typecheck -w @universal-payment/external-naming && npm run typecheck -w @universal-payment/registry && npm run typecheck -w @universal-payment/resolver && npm run typecheck -w @universal-payment/sdk",
+    "deploy:api": "node scripts/ensure-env.mjs && wrangler deploy --config registry/wrangler.toml"
+  },
+  "devDependencies": {
+    "@neondatabase/serverless": "^1.0.0",
+    "@privy-io/node": "^0.32.0",
+    "concurrently": "^9.2.1",
+    "viem": "^2.55.10",
+    "wrangler": "^4"
+  }
+}

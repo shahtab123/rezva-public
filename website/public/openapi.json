@@ -1,0 +1,961 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Rezva Universal Payment Resolution API",
+    "version": "1.0.0",
+    "description": "Machine-readable API contract for resolving payment identifiers into wallet-ready destinations."
+  },
+  "servers": [
+    {
+      "url": "https://api.example.com",
+      "description": "Replace with the configured Rezva API base URL"
+    }
+  ],
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ],
+  "paths": {
+    "/health": {
+      "get": {
+        "operationId": "getHealth",
+        "security": [],
+        "responses": {
+          "200": {
+            "description": "Service health",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Health"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/identifier-types": {
+      "get": {
+        "operationId": "listIdentifierTypes",
+        "responses": {
+          "200": {
+            "description": "Supported identifier types",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "types"
+                  ],
+                  "properties": {
+                    "types": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/IdentifierType"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/resolve": {
+      "post": {
+        "operationId": "resolveIdentifier",
+        "summary": "Resolve an identifier",
+        "description": "Returns registry state and payment options. Free API keys are accepted for this resolver operation only.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ResolveRequest"
+              },
+              "examples": {
+                "testMerchant": {
+                  "value": {
+                    "type": "custom",
+                    "value": "rezva-test-merchant"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Resolution result",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResolveResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimited"
+          }
+        }
+      }
+    },
+    "/v1/identifiers/{type}/{value}/availability": {
+      "get": {
+        "operationId": "getIdentifierAvailability",
+        "security": [],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/IdentifierType"
+          },
+          {
+            "$ref": "#/components/parameters/IdentifierValue"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Identifier availability",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "available": {
+                      "type": "boolean"
+                    },
+                    "type": {
+                      "type": "string"
+                    },
+                    "value": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/identifiers": {
+      "post": {
+        "operationId": "registerIdentifier",
+        "summary": "Register an identifier",
+        "description": "Requires an approved provider credential and controller authorization.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/ControllerWallet"
+          },
+          {
+            "$ref": "#/components/parameters/ControllerAuthorization"
+          },
+          {
+            "$ref": "#/components/parameters/IdempotencyKey"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegisterIdentifierRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Identifier registered",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Identifier"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/ValidationError"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "409": {
+            "$ref": "#/components/responses/Conflict"
+          }
+        }
+      }
+    },
+    "/v1/identifiers/{id}": {
+      "get": {
+        "operationId": "getIdentifier",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/IdentifierId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Identifier",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Identifier"
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          }
+        }
+      },
+      "patch": {
+        "operationId": "updateIdentifier",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/IdentifierId"
+          },
+          {
+            "$ref": "#/components/parameters/ControllerWallet"
+          },
+          {
+            "$ref": "#/components/parameters/ControllerAuthorization"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateIdentifierRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Identifier updated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Identifier"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      },
+      "delete": {
+        "operationId": "removeIdentifier",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/IdentifierId"
+          },
+          {
+            "$ref": "#/components/parameters/ControllerWallet"
+          },
+          {
+            "$ref": "#/components/parameters/ControllerAuthorization"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Identifier removed"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      }
+    },
+    "/v1/identifiers/{id}/emergency-suspend": {
+      "post": {
+        "operationId": "emergencySuspendIdentifier",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/IdentifierId"
+          },
+          {
+            "$ref": "#/components/parameters/ControllerWallet"
+          },
+          {
+            "$ref": "#/components/parameters/ControllerAuthorization"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "reason": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Identifier suspended"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      }
+    },
+    "/v1/identifiers/{id}/history": {
+      "get": {
+        "operationId": "getIdentifierHistory",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/IdentifierId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Identifier event history"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          }
+        }
+      }
+    },
+    "/v1/namespaces": {
+      "get": {
+        "operationId": "listNamespaces",
+        "responses": {
+          "200": {
+            "description": "Provider namespaces"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          }
+        }
+      },
+      "post": {
+        "operationId": "applyNamespace",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NamespaceRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Namespace submitted"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          }
+        }
+      }
+    },
+    "/v1/namespaces/{namespace}": {
+      "get": {
+        "operationId": "getNamespace",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/Namespace"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Namespace, names, and usage"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          }
+        }
+      }
+    },
+    "/v1/namespaces/{namespace}/names": {
+      "post": {
+        "operationId": "registerNamespaceName",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/Namespace"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NamespaceNameRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Namespace name registered"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "409": {
+            "$ref": "#/components/responses/Conflict"
+          }
+        }
+      }
+    },
+    "/v1/complaints": {
+      "post": {
+        "operationId": "submitComplaint",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ComplaintRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Complaint submitted"
+          },
+          "400": {
+            "$ref": "#/components/responses/ValidationError"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "description": "Approved provider API key or Free API resolver key"
+      }
+    },
+    "parameters": {
+      "IdentifierType": {
+        "name": "type",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      "IdentifierValue": {
+        "name": "value",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      "IdentifierId": {
+        "name": "id",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      "Namespace": {
+        "name": "namespace",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      "ControllerWallet": {
+        "name": "X-Controller-Wallet",
+        "in": "header",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      "ControllerAuthorization": {
+        "name": "X-Controller-Authorization",
+        "in": "header",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      "IdempotencyKey": {
+        "name": "Idempotency-Key",
+        "in": "header",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      }
+    },
+    "responses": {
+      "Unauthorized": {
+        "description": "Authentication failed"
+      },
+      "RateLimited": {
+        "description": "Rate limit exceeded",
+        "headers": {
+          "Retry-After": {
+            "schema": {
+              "type": "integer"
+            }
+          }
+        }
+      },
+      "ValidationError": {
+        "description": "Request validation failed"
+      },
+      "Conflict": {
+        "description": "Resource conflict"
+      },
+      "Forbidden": {
+        "description": "Operation is not authorized"
+      },
+      "NotFound": {
+        "description": "Resource was not found"
+      }
+    },
+    "schemas": {
+      "Health": {
+        "type": "object",
+        "required": [
+          "ok",
+          "service"
+        ],
+        "properties": {
+          "ok": {
+            "type": "boolean"
+          },
+          "service": {
+            "type": "string"
+          },
+          "database": {
+            "type": "string"
+          }
+        }
+      },
+      "IdentifierType": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "version": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "privacy": {
+            "type": "string"
+          },
+          "registration_eligible": {
+            "type": "boolean"
+          },
+          "resolution_eligible": {
+            "type": "boolean"
+          }
+        }
+      },
+      "ResolveRequest": {
+        "type": "object",
+        "required": [
+          "type",
+          "value"
+        ],
+        "properties": {
+          "type": {
+            "type": "string"
+          },
+          "value": {
+            "type": "string"
+          }
+        }
+      },
+      "RegisterIdentifierRequest": {
+        "type": "object",
+        "required": [
+          "type",
+          "value",
+          "payment_options"
+        ],
+        "properties": {
+          "type": {
+            "type": "string"
+          },
+          "value": {
+            "type": "string"
+          },
+          "name_id": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "payment_options": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PaymentOptionInput"
+            }
+          }
+        }
+      },
+      "UpdateIdentifierRequest": {
+        "type": "object",
+        "properties": {
+          "name_id": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "payment_options": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PaymentOptionInput"
+            }
+          }
+        }
+      },
+      "PaymentOptionInput": {
+        "type": "object",
+        "required": [
+          "chain",
+          "asset",
+          "address"
+        ],
+        "properties": {
+          "chain": {
+            "type": "string"
+          },
+          "asset": {
+            "type": "string"
+          },
+          "address": {
+            "type": "string"
+          },
+          "token_contract": {
+            "type": "string"
+          },
+          "network_identifier": {
+            "type": "string"
+          },
+          "memo": {
+            "type": "string"
+          },
+          "payment_reference": {
+            "type": "string"
+          },
+          "minimum_amount": {
+            "type": "string"
+          },
+          "maximum_amount": {
+            "type": "string"
+          },
+          "fixed_amount": {
+            "type": "string"
+          },
+          "expiration": {
+            "type": "string"
+          }
+        }
+      },
+      "Identifier": {
+        "type": "object",
+        "required": [
+          "id",
+          "type",
+          "value",
+          "status",
+          "controller"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "value": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "controller": {
+            "type": "string"
+          },
+          "registered_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "activated_at": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time"
+          },
+          "payment_options": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PaymentOptionInput"
+            }
+          }
+        }
+      },
+      "NamespaceRequest": {
+        "type": "object",
+        "required": [
+          "slug"
+        ],
+        "properties": {
+          "slug": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "registration_policy": {
+            "type": "string"
+          },
+          "reserved_names": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "NamespaceNameRequest": {
+        "type": "object",
+        "required": [
+          "label"
+        ],
+        "properties": {
+          "label": {
+            "type": "string"
+          },
+          "controller_ref": {
+            "type": "string"
+          },
+          "chain": {
+            "type": "string"
+          },
+          "asset": {
+            "type": "string"
+          },
+          "address": {
+            "type": "string"
+          }
+        }
+      },
+      "ComplaintRequest": {
+        "type": "object",
+        "required": [
+          "reason",
+          "description"
+        ],
+        "properties": {
+          "identifier_id": {
+            "type": "string"
+          },
+          "target_type": {
+            "type": "string"
+          },
+          "target_value": {
+            "type": "string"
+          },
+          "reporter_user_id": {
+            "type": "string"
+          },
+          "reason": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "evidence": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "ResolveResponse": {
+        "type": "object",
+        "required": [
+          "protocol_version",
+          "status",
+          "payment_ready",
+          "identifier",
+          "registration",
+          "payment_options"
+        ],
+        "properties": {
+          "protocol_version": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "pending",
+              "active",
+              "update_pending",
+              "suspended",
+              "removed",
+              "revoked"
+            ]
+          },
+          "payment_ready": {
+            "type": "boolean"
+          },
+          "identifier": {
+            "type": "object",
+            "required": [
+              "type",
+              "value"
+            ],
+            "properties": {
+              "type": {
+                "type": "string"
+              },
+              "value": {
+                "type": "string"
+              },
+              "normalized_value": {
+                "type": "string"
+              }
+            }
+          },
+          "registration": {
+            "type": "object",
+            "properties": {
+              "registered_at": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "format": "date-time"
+              },
+              "activated_at": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "format": "date-time"
+              },
+              "last_updated": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "format": "date-time"
+              },
+              "last_payment_update": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "format": "date-time"
+              }
+            }
+          },
+          "payment_options": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PaymentOption"
+            }
+          },
+          "trust": {
+            "type": "object",
+            "properties": {
+              "warnings": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "PaymentOption": {
+        "type": "object",
+        "required": [
+          "chain",
+          "asset",
+          "address",
+          "payment_ready"
+        ],
+        "properties": {
+          "chain": {
+            "type": "string"
+          },
+          "asset": {
+            "type": "string"
+          },
+          "address": {
+            "type": "string"
+          },
+          "token_contract": {
+            "type": "string"
+          },
+          "network_identifier": {
+            "type": "string"
+          },
+          "payment_ready": {
+            "type": "boolean"
+          },
+          "minimum_amount": {
+            "type": "string"
+          },
+          "maximum_amount": {
+            "type": "string"
+          },
+          "fixed_amount": {
+            "type": "string"
+          },
+          "expiration": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

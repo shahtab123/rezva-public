@@ -1,0 +1,29 @@
+{
+  "name": "@universal-payment/registry",
+  "version": "0.1.0",
+  "private": false,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./lib": "./src/lib/index.ts"
+  },
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "db:migrate": "wrangler d1 migrations apply rezva-registry --local",
+    "db:migrate:neon": "node ../scripts/migrate-neon.mjs"
+  },
+  "dependencies": {
+    "@neondatabase/serverless": "^1.0.0",
+    "@universal-payment/protocol": "0.1.0",
+    "@universal-payment/identifier-types": "0.1.0",
+    "@universal-payment/external-naming": "0.1.0",
+    "@upstash/redis": "^1.34.3"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^5",
+    "typescript": "^5",
+    "wrangler": "^4"
+  }
+}

@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="880" viewBox="0 0 1280 880">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#252522"/>
+      <stop offset="1" stop-color="#111110"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="75%" cy="15%" r="75%">
+      <stop offset="0" stop-color="#ff4d00" stop-opacity=".28"/>
+      <stop offset="1" stop-color="#ff4d00" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1280" height="880" fill="url(#bg)"/>
+  <rect width="1280" height="880" fill="url(#glow)"/>
+
+  <g transform="translate(110 96)">
+    <text fill="#999993" font-family="monospace" font-size="18" letter-spacing="3">REZVA RESOLUTION FLOW</text>
+    <text y="54" fill="#f5f5f1" font-family="Arial, sans-serif" font-size="38" font-weight="600">Existing identifier to onchain payment</text>
+  </g>
+
+  <g transform="translate(110 255)">
+    <rect width="252" height="292" rx="20" fill="#f5f5f1"/>
+    <text x="28" y="48" fill="#999993" font-family="monospace" font-size="13">IDENTIFIER</text>
+    <rect x="28" y="74" width="196" height="40" rx="8" fill="#fff" stroke="#deded9"/>
+    <text x="46" y="100" fill="#111110" font-family="monospace" font-size="14">phone</text>
+    <rect x="28" y="126" width="196" height="40" rx="8" fill="#fff" stroke="#deded9"/>
+    <text x="46" y="152" fill="#111110" font-family="monospace" font-size="14">QR payload</text>
+    <rect x="28" y="178" width="196" height="40" rx="8" fill="#fff" stroke="#deded9"/>
+    <text x="46" y="204" fill="#111110" font-family="monospace" font-size="14">username</text>
+    <text x="126" y="258" text-anchor="middle" fill="#686864" font-family="monospace" font-size="12">+ MORE TYPES</text>
+  </g>
+
+  <g transform="translate(416 350)">
+    <path d="M0 0h92" stroke="#ff4d00" stroke-width="3"/>
+    <path d="m82-9 10 9-10 9" fill="none" stroke="#ff4d00" stroke-width="3"/>
+  </g>
+
+  <g transform="translate(555 255)">
+    <rect width="210" height="292" rx="32" fill="#0e0e0d" stroke="#55554f" stroke-width="3"/>
+    <rect x="20" y="46" width="170" height="186" rx="16" fill="#242421"/>
+    <circle cx="105" cy="128" r="36" fill="#ff4d00"/>
+    <path d="M91 128h28M109 117l11 11-11 11" fill="none" stroke="white" stroke-width="3"/>
+    <text x="105" y="263" text-anchor="middle" fill="#999993" font-family="monospace" font-size="14">RESOLVER</text>
+  </g>
+
+  <g transform="translate(817 350)">
+    <path d="M0 0h92" stroke="#ff4d00" stroke-width="3"/>
+    <path d="m82-9 10 9-10 9" fill="none" stroke="#ff4d00" stroke-width="3"/>
+  </g>
+
+  <g transform="translate(958 255)">
+    <rect width="212" height="292" rx="20" fill="#f5f5f1"/>
+    <text x="28" y="55" fill="#999993" font-family="monospace" font-size="13">PAYMENT OPTIONS</text>
+    <text x="28" y="111" fill="#111110" font-family="Arial, sans-serif" font-size="28" font-weight="700">Asset</text>
+    <text x="28" y="146" fill="#686864" font-family="Arial, sans-serif" font-size="21">Network</text>
+    <path d="M28 177h156" stroke="#deded9"/>
+    <text x="28" y="212" fill="#686864" font-family="monospace" font-size="13">0xDESTINATION</text>
+    <rect x="28" y="238" width="156" height="34" rx="8" fill="#ff4d00"/>
+    <text x="106" y="260" text-anchor="middle" fill="white" font-family="monospace" font-size="12">PAYMENT READY</text>
+  </g>
+
+  <g transform="translate(110 700)">
+    <circle cx="25" cy="25" r="25" fill="#ff4d00"/>
+    <path d="m20 15 16 10-16 10z" fill="white"/>
+    <text x="72" y="31" fill="#f5f5f1" font-family="Arial, sans-serif" font-size="22" font-weight="600">Play the end-to-end demo</text>
+  </g>
+</svg>

@@ -1,0 +1,929 @@
+/* Vintage steel-engraving theme - marketing surfaces only */
+
+.theme-engraving {
+  --background: #f2ebe0;
+  --surface: #faf6ee;
+  --ink: #1a2744;
+  --muted: #5a6478;
+  --line: #cfc3ad;
+  --soft: #e8e0d2;
+  --orange: #1e3558;
+  --orange-soft: #e6dfd1;
+  --dark: #152238;
+  --engraving-cream: #f2ebe0;
+  --engraving-ivory: #faf6ee;
+  --engraving-ink: #1a2744;
+  --engraving-rule: color-mix(in srgb, var(--ink) 55%, transparent);
+  --page-gutter: max(6vw, calc((100vw - 1440px) / 2));
+  --page-content-max: 1320px;
+
+  min-height: 100%;
+  color: var(--ink);
+  background-color: var(--background);
+  background-image:
+    linear-gradient(rgba(26, 39, 68, 0.028) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(26, 39, 68, 0.022) 1px, transparent 1px);
+  background-size: 28px 28px, 28px 28px;
+  font-family: var(--font-engraving-sans), var(--font-sans), "Segoe UI", sans-serif;
+}
+
+.theme-engraving ::selection {
+  background: var(--ink);
+  color: var(--surface);
+}
+
+.theme-engraving h1,
+.theme-engraving h2,
+.theme-engraving h3,
+.theme-engraving .hero h1,
+.theme-engraving .section-intro h2,
+.theme-engraving .ecosystem-copy h2,
+.theme-engraving .protocol-panel h2,
+.theme-engraving .final-cta h2,
+.theme-engraving .identifier-message h2,
+.theme-engraving .static-page-inner h1 {
+  font-family: var(--font-display), "Times New Roman", Georgia, serif;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.08;
+  color: var(--ink);
+}
+
+.theme-engraving .eyebrow,
+.theme-engraving .section-number,
+.theme-engraving .hero-proof,
+.theme-engraving .static-page-eyebrow,
+.theme-engraving .identifier-qr-label,
+.theme-engraving .site-footer-nav h2,
+.theme-engraving .site-footer-bottom > p {
+  font-family: var(--font-engraving-sans), var(--font-sans), sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-variant: small-caps;
+  font-variant-caps: all-small-caps;
+  color: var(--ink);
+}
+
+.theme-engraving .eyebrow,
+.theme-engraving .section-number {
+  color: color-mix(in srgb, var(--ink) 78%, var(--muted));
+}
+
+.theme-engraving .live-dot {
+  background: var(--ink);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--ink) 12%, transparent);
+  border-radius: 0;
+  width: 6px;
+  height: 6px;
+}
+
+/* -- Header: paper plate, no glass -- */
+.theme-engraving .site-header {
+  top: 20px;
+  border: 1px solid var(--ink);
+  border-radius: 0;
+  background: var(--surface);
+  box-shadow:
+    2px 2px 0 0 color-mix(in srgb, var(--ink) 18%, transparent),
+    inset 0 0 0 3px var(--surface),
+    inset 0 0 0 4px color-mix(in srgb, var(--ink) 22%, transparent);
+  backdrop-filter: none;
+}
+
+.theme-engraving .header-secondary-nav a,
+.theme-engraving .desktop-nav a,
+.theme-engraving .dashboard-link {
+  color: color-mix(in srgb, var(--ink) 82%, var(--muted));
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-size: 11px;
+}
+
+.theme-engraving .header-secondary-nav a:hover,
+.theme-engraving .desktop-nav a:hover,
+.theme-engraving .dashboard-link:hover {
+  color: var(--ink);
+}
+
+.theme-engraving .brand-mark,
+.theme-engraving .site-header-brand-mark {
+  border-radius: 0;
+  border: 1px solid color-mix(in srgb, var(--ink) 35%, transparent);
+}
+
+.theme-engraving .account-menu-dropdown {
+  border: 1px solid var(--ink);
+  border-radius: 0;
+  background: var(--surface);
+  box-shadow: 3px 3px 0 color-mix(in srgb, var(--ink) 15%, transparent);
+}
+
+.theme-engraving .account-menu-item:hover {
+  background: var(--soft);
+}
+
+/* -- Buttons -- */
+.theme-engraving .button {
+  border-radius: 0;
+  letter-spacing: 0.04em;
+  font-weight: 600;
+  box-shadow: none;
+}
+
+.theme-engraving .button:hover {
+  transform: translateY(-1px);
+}
+
+.theme-engraving .button-primary {
+  background: var(--ink);
+  color: var(--surface);
+  border: 1px solid var(--ink);
+  box-shadow: 3px 3px 0 color-mix(in srgb, var(--ink) 22%, transparent);
+}
+
+.theme-engraving .button-primary:hover {
+  background: #121c33;
+}
+
+.theme-engraving .button-secondary,
+.theme-engraving .button-light {
+  border: 1px solid var(--ink);
+  background: transparent;
+  color: var(--ink);
+}
+
+.theme-engraving .button-secondary:hover,
+.theme-engraving .button-light:hover {
+  background: var(--soft);
+  border-color: var(--ink);
+}
+
+.theme-engraving .button-dark {
+  background: var(--ink);
+  color: var(--surface);
+}
+
+.theme-engraving .button-dark:hover {
+  background: #121c33;
+}
+
+.theme-engraving .hero-copy {
+  position: relative;
+}
+
+.theme-engraving .hero-copy::before {
+  display: block;
+  width: 72px;
+  height: 10px;
+  margin-bottom: 28px;
+  background:
+    linear-gradient(var(--ink), var(--ink)) center / 100% 1px no-repeat,
+    radial-gradient(circle, var(--ink) 1.2px, transparent 1.3px) 0 50% / 12px 10px repeat-x;
+  content: "";
+  opacity: 0.55;
+}
+
+.theme-engraving .hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background:
+    linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--background) 92%, transparent) 0%,
+      color-mix(in srgb, var(--background) 78%, transparent) 42%,
+      var(--background) 78%
+    ),
+    var(--background);
+  border-bottom: 1px solid var(--line);
+}
+
+.theme-engraving .hero h1 span {
+  color: color-mix(in srgb, var(--ink) 42%, var(--muted));
+  font-style: italic;
+  font-weight: 400;
+}
+
+.theme-engraving .hero-lede {
+  color: var(--muted);
+  max-width: 38rem;
+}
+
+.theme-engraving .hero-proof span::before {
+  content: "❧";
+  color: var(--ink);
+  font-style: normal;
+}
+
+/* -- Signal bar -- */
+.theme-engraving .signal-bar {
+  background: var(--ink);
+  color: var(--surface);
+  border-top: 1px solid var(--ink);
+  border-bottom: 1px solid var(--ink);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-size: 10px;
+  font-weight: 600;
+}
+
+.theme-engraving .signal-bar i {
+  background: color-mix(in srgb, var(--surface) 55%, transparent);
+  border-radius: 0;
+  width: 4px;
+  height: 4px;
+}
+
+/* -- Sections -- */
+.theme-engraving .section {
+  border-bottom: 1px solid var(--line);
+  background: transparent;
+}
+
+.theme-engraving .how-section {
+  background: var(--surface);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--ink) 6%, transparent);
+}
+
+.theme-engraving .section-intro > p:last-of-type,
+.theme-engraving .ecosystem-copy > p,
+.theme-engraving .protocol-description,
+.theme-engraving .final-cta > p:not(.eyebrow) {
+  color: var(--muted);
+}
+
+/* Engraved plate frames */
+.theme-engraving .demo-wrap,
+.theme-engraving .resolution-canvas,
+.theme-engraving .wallet-sheet,
+.theme-engraving .ecosystem-layout,
+.theme-engraving .protocol-editor,
+.theme-engraving .wallet-config-card {
+  border-radius: 0;
+  border: 1px solid var(--ink);
+  box-shadow:
+    4px 4px 0 color-mix(in srgb, var(--ink) 12%, transparent),
+    inset 0 0 0 3px var(--surface),
+    inset 0 0 0 4px color-mix(in srgb, var(--ink) 18%, transparent);
+}
+
+.theme-engraving .demo-wrap {
+  background: var(--ink);
+  box-shadow:
+    4px 4px 0 color-mix(in srgb, var(--ink) 18%, transparent),
+    inset 0 0 0 3px var(--ink),
+    inset 0 0 0 4px color-mix(in srgb, var(--surface) 22%, transparent);
+}
+
+.theme-engraving .demo-header i,
+.theme-engraving .demo-header span:first-child i {
+  background: var(--surface);
+  border-radius: 0;
+}
+
+.theme-engraving .demo-video-placeholder {
+  background:
+    repeating-linear-gradient(
+      -45deg,
+      transparent,
+      transparent 3px,
+      color-mix(in srgb, var(--surface) 6%, transparent) 3px,
+      color-mix(in srgb, var(--surface) 6%, transparent) 4px
+    ),
+    var(--ink);
+  color: color-mix(in srgb, var(--surface) 88%, transparent);
+}
+
+.theme-engraving .demo-video-placeholder p {
+  color: var(--surface);
+  font-family: var(--font-display), Georgia, serif;
+  font-weight: 500;
+}
+
+/* Resolution canvas */
+.theme-engraving .resolution-canvas {
+  --canvas-ink: var(--ink);
+  --canvas-body: color-mix(in srgb, var(--ink) 78%, var(--muted));
+  --canvas-label: var(--muted);
+  --canvas-muted: var(--muted);
+  background: var(--surface);
+  border-color: var(--ink);
+}
+
+.theme-engraving .canvas-header,
+.theme-engraving .canvas-telemetry {
+  border-color: var(--line);
+  background: color-mix(in srgb, var(--soft) 70%, var(--surface));
+}
+
+.theme-engraving .canvas-live {
+  background: var(--ink);
+  box-shadow: none;
+}
+
+.theme-engraving .source-cloud article,
+.theme-engraving .stage-rail article,
+.theme-engraving .result-options article,
+.theme-engraving .engine-state,
+.theme-engraving .canonical-preview {
+  border-radius: 0;
+  border-color: var(--line);
+  background: var(--surface);
+  box-shadow: none;
+}
+
+.theme-engraving .result-options article.recommended,
+.theme-engraving .stage-rail article {
+  box-shadow: none;
+}
+
+.theme-engraving .line-icon {
+  border-radius: 0;
+  border: 1px solid var(--line);
+  background: var(--soft);
+  color: var(--ink);
+}
+
+.theme-engraving .rezva-engine {
+  border-color: var(--ink);
+  background:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      color-mix(in srgb, var(--ink) 3%, transparent) 2px,
+      color-mix(in srgb, var(--ink) 3%, transparent) 3px
+    ),
+    var(--surface);
+}
+
+/* Identifiers - indigo plate */
+.theme-engraving .identifiers-section {
+  background:
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 2px,
+      color-mix(in srgb, var(--surface) 4%, transparent) 2px,
+      color-mix(in srgb, var(--surface) 4%, transparent) 3px
+    ),
+    var(--ink);
+  color: var(--surface);
+  border-top: 1px solid var(--ink);
+  border-bottom: 1px solid var(--ink);
+}
+
+.theme-engraving .identifiers-section .section-number,
+.theme-engraving .identifiers-section .identifier-qr-label {
+  color: color-mix(in srgb, var(--surface) 72%, transparent);
+}
+
+.theme-engraving .identifier-list span {
+  border: 1px solid color-mix(in srgb, var(--surface) 35%, transparent);
+  border-radius: 0;
+  background: transparent;
+  color: var(--surface);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 11px;
+}
+
+.theme-engraving .identifier-qr-block {
+  background: transparent;
+  border-top: 1px solid color-mix(in srgb, var(--surface) 35%, transparent);
+  border-bottom: 1px solid color-mix(in srgb, var(--surface) 35%, transparent);
+  box-shadow: none;
+}
+
+.theme-engraving .wallet-config-card {
+  background: var(--surface);
+  overflow: hidden;
+}
+
+.theme-engraving .wallet-config-header,
+.theme-engraving .wallet-tabs-list {
+  border-color: var(--line);
+  background: color-mix(in srgb, var(--soft) 65%, var(--surface));
+}
+
+.theme-engraving .wallet-header-icon {
+  border-radius: 0;
+  border: 1px solid var(--ink);
+  background: transparent;
+  color: var(--ink);
+}
+
+.theme-engraving .wallet-availability {
+  border-radius: 0;
+  border: 1px solid var(--ink);
+  background: transparent;
+  color: var(--ink);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 10px;
+}
+
+.theme-engraving .wallet-tabs-list button {
+  border-radius: 0;
+}
+
+.theme-engraving .wallet-tabs-list button[data-state="active"] {
+  background: var(--ink);
+  color: var(--surface);
+  box-shadow: none;
+}
+
+.theme-engraving .wallet-mode-icon {
+  border-radius: 0;
+  border: 1px solid var(--ink);
+  background: var(--soft);
+  color: var(--ink);
+}
+
+.theme-engraving .wallet-tabs-list {
+  border-radius: 0;
+  border: 1px solid var(--line);
+}
+
+.theme-engraving .architecture-group > p,
+.theme-engraving .settlement-box > p,
+.theme-engraving .wallet-integration > p,
+.theme-engraving .architecture-title,
+.theme-engraving .engine-panel > p {
+  color: var(--ink);
+  background: var(--soft);
+  border-color: var(--line);
+}
+
+.theme-engraving .architecture-group,
+.theme-engraving .wallet-box,
+.theme-engraving .settlement-box,
+.theme-engraving .engine-panel,
+.theme-engraving .architecture-item,
+.theme-engraving .engine-item {
+  border-radius: 0;
+  border-color: var(--line);
+  background: var(--surface);
+  box-shadow: none;
+}
+
+.theme-engraving .architecture-item > span,
+.theme-engraving .policy-engine > span,
+.theme-engraving .trust-layer > span,
+.theme-engraving .engine-item > span {
+  border-radius: 0;
+  border: 1px solid var(--ink);
+  background: var(--soft);
+  color: var(--ink);
+}
+
+.theme-engraving .docs-topbar {
+  border-bottom: 1px solid var(--ink);
+  background: var(--surface);
+  backdrop-filter: none;
+}
+
+.theme-engraving .docs-topbar-brand {
+  font-family: var(--font-display), Georgia, serif;
+  font-weight: 500;
+}
+
+.theme-engraving .identifier-qr-lede,
+.theme-engraving .identifier-message p {
+  color: color-mix(in srgb, var(--surface) 72%, transparent);
+}
+
+.theme-engraving .identifier-message h2,
+.theme-engraving .identifier-message h2 em {
+  color: var(--surface);
+}
+
+.theme-engraving .identifier-message h2 em {
+  font-style: italic;
+  font-weight: 400;
+}
+
+.theme-engraving .identifier-qr-grid article {
+  border-radius: 0;
+  border: 1px solid color-mix(in srgb, var(--surface) 28%, transparent);
+  background: color-mix(in srgb, var(--surface) 5%, transparent);
+}
+
+.theme-engraving .identifier-qr-logo {
+  border-radius: 0;
+  background: var(--surface);
+}
+
+.theme-engraving .identifier-qr-logo.is-mono img {
+  filter: none;
+}
+
+/* Ecosystem */
+.theme-engraving .ecosystem-layout {
+  background: var(--surface);
+}
+
+.theme-engraving .ecosystem-copy {
+  background:
+    repeating-linear-gradient(
+      -32deg,
+      transparent,
+      transparent 4px,
+      color-mix(in srgb, var(--ink) 4%, transparent) 4px,
+      color-mix(in srgb, var(--ink) 4%, transparent) 5px
+    ),
+    var(--soft);
+}
+
+.theme-engraving .ecosystem-grid article {
+  background: var(--surface);
+  border-color: var(--line);
+}
+
+.theme-engraving .ecosystem-grid article:hover {
+  background: var(--soft);
+}
+
+.theme-engraving .ecosystem-grid article > span {
+  border-radius: 0;
+  border: 1px solid var(--ink);
+  background: transparent;
+  color: var(--ink);
+  font-family: var(--font-display), Georgia, serif;
+}
+
+/* Protocol / editor */
+.theme-engraving .protocol-section {
+  background:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 3px,
+      color-mix(in srgb, var(--ink) 2.5%, transparent) 3px,
+      color-mix(in srgb, var(--ink) 2.5%, transparent) 4px
+    ),
+    var(--background);
+}
+
+.theme-engraving .protocol-editor {
+  background: var(--ink);
+  color: var(--surface);
+  box-shadow: 4px 4px 0 color-mix(in srgb, var(--ink) 20%, transparent);
+}
+
+.theme-engraving .editor-window-bar,
+.theme-engraving .editor-tab-bar,
+.theme-engraving .editor-status-bar {
+  background: color-mix(in srgb, var(--ink) 92%, black);
+  border-color: color-mix(in srgb, var(--surface) 18%, transparent);
+}
+
+.theme-engraving .editor-dots span {
+  border-radius: 0;
+  background: color-mix(in srgb, var(--surface) 45%, transparent);
+}
+
+.theme-engraving .syn-keyword {
+  color: #c4d0e8;
+}
+
+.theme-engraving .syn-string {
+  color: #e8d9b8;
+}
+
+.theme-engraving .syn-type,
+.theme-engraving .syn-function {
+  color: #b8c9a8;
+}
+
+.theme-engraving .protocol-points span {
+  border-radius: 0;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-size: 11px;
+}
+
+/* Trust / wallet sheet */
+.theme-engraving .trust-points li + li {
+  border-top-color: var(--line);
+}
+
+.theme-engraving .trust-points li::before {
+  background: var(--ink);
+  border-radius: 0;
+  width: 5px;
+  height: 5px;
+}
+
+.theme-engraving .wallet-sheet {
+  background: var(--surface);
+}
+
+.theme-engraving .wallet-sheet-handle {
+  background: var(--line);
+  border-radius: 0;
+}
+
+.theme-engraving .wallet-sheet-chip {
+  border-radius: 0;
+  border: 1px solid var(--ink);
+  background: transparent;
+  color: var(--ink);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 10px;
+}
+
+.theme-engraving .wallet-sheet-chip.is-ready {
+  background: var(--ink);
+  color: var(--surface);
+}
+
+.theme-engraving .wallet-sheet-avatar {
+  border-radius: 0;
+  background: var(--ink);
+  color: var(--surface);
+  font-family: var(--font-display), Georgia, serif;
+}
+
+.theme-engraving .wallet-sheet-btn {
+  border-radius: 0;
+  border: 1px solid var(--ink);
+  background: transparent;
+}
+
+.theme-engraving .wallet-sheet-btn.is-primary {
+  background: var(--ink);
+  color: var(--surface);
+  border-color: var(--ink);
+}
+
+.theme-engraving .wallet-sheet-amount strong span,
+.theme-engraving .wallet-sheet-merchant strong {
+  color: var(--ink);
+}
+
+/* Hardcoded orange → indigo leftovers */
+.theme-engraving .button-primary {
+  box-shadow: 3px 3px 0 color-mix(in srgb, var(--ink) 22%, transparent);
+}
+
+.theme-engraving [style*="ff4d00"],
+.theme-engraving .map-canvas,
+.theme-engraving .architecture-map,
+.theme-engraving .architecture-body {
+  background-image: none;
+}
+
+.theme-engraving .architecture-step > span,
+.theme-engraving .source-card:hover,
+.theme-engraving .map-canvas,
+.theme-engraving .architecture-map {
+  filter: none;
+}
+
+.theme-engraving .architecture-step > span {
+  background: var(--ink);
+  clip-path: none;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.theme-engraving .architecture-step > svg,
+.theme-engraving .trust-layer::before {
+  color: var(--ink);
+  border-color: var(--ink);
+}
+
+.theme-engraving .source-card:hover {
+  border-color: var(--ink);
+  box-shadow: 2px 2px 0 color-mix(in srgb, var(--ink) 15%, transparent);
+}
+
+.theme-engraving .resolution-map::before,
+.theme-engraving .map-canvas,
+.theme-engraving .architecture-map {
+  background: var(--surface);
+}
+
+.theme-engraving .resolution-map::before {
+  background: var(--ink);
+  height: 2px;
+}
+
+/* Wallet integration / panels */
+.theme-engraving .wallet-mode-footer a:hover {
+  background: #121c33;
+}
+
+.theme-engraving .footer-github:hover,
+.theme-engraving .static-page-body a {
+  color: var(--ink);
+}
+
+/* Footer */
+.theme-engraving .site-footer {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background: var(--surface);
+  border-top: 1px solid var(--ink);
+  color: var(--ink);
+}
+
+.theme-engraving .site-footer::before {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background:
+    linear-gradient(
+      180deg,
+      var(--surface) 0%,
+      color-mix(in srgb, var(--surface) 82%, transparent) 28%,
+      color-mix(in srgb, var(--surface) 55%, transparent) 100%
+    ),
+    url("/engraving/footer.webp") center bottom / cover no-repeat;
+  content: "";
+  opacity: 0.55;
+  mix-blend-mode: multiply;
+  pointer-events: none;
+}
+
+.theme-engraving .site-footer-inner {
+  position: relative;
+  z-index: 1;
+}
+
+.theme-engraving .site-footer-tagline {
+  color: var(--muted);
+}
+
+.theme-engraving .site-footer-nav a:hover {
+  color: var(--ink);
+}
+
+.theme-engraving .final-cta {
+  position: relative;
+  border-top: 1px solid var(--line);
+  background:
+    radial-gradient(
+      ellipse 50% 60% at 50% 0%,
+      color-mix(in srgb, var(--ink) 5%, transparent),
+      transparent 70%
+    ),
+    var(--background);
+}
+
+/* Ornamental section rules */
+.theme-engraving .section-intro .section-number::after,
+.theme-engraving .identifiers-inner > .section-number::after,
+.theme-engraving .ecosystem-section .section-number::after,
+.theme-engraving .protocol-panel .section-number::after {
+  display: block;
+  width: 48px;
+  height: 1px;
+  margin-top: 14px;
+  background: var(--ink);
+  content: "";
+}
+
+.theme-engraving .identifiers-inner > .section-number::after {
+  background: color-mix(in srgb, var(--surface) 55%, transparent);
+}
+
+/* Soften neon / glow leftovers inside marketing */
+.theme-engraving * {
+  text-shadow: none !important;
+}
+
+.theme-engraving .button-primary,
+.theme-engraving .wallet-sheet-btn.is-primary,
+.theme-engraving .signal-bar,
+.theme-engraving .live-dot {
+  box-shadow:
+    3px 3px 0 color-mix(in srgb, var(--ink) 18%, transparent);
+}
+
+.theme-engraving .live-dot,
+.theme-engraving .signal-bar {
+  box-shadow: none;
+}
+
+.theme-engraving .button-primary {
+  box-shadow: 3px 3px 0 color-mix(in srgb, var(--ink) 22%, transparent);
+}
+
+/* -- Mediterranean engraving landscapes -- */
+.theme-engraving .engraving-hero-art {
+  position: absolute;
+  inset: auto 0 0 auto;
+  z-index: 0;
+  width: min(58vw, 720px);
+  height: min(78%, 620px);
+  pointer-events: none;
+  background:
+    linear-gradient(
+      105deg,
+      var(--background) 0%,
+      color-mix(in srgb, var(--background) 55%, transparent) 28%,
+      transparent 52%
+    ),
+    linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--background) 70%, transparent) 0%,
+      transparent 28%,
+      color-mix(in srgb, var(--background) 35%, transparent) 100%
+    ),
+    url("/engraving/hero.webp") right bottom / cover no-repeat;
+  opacity: 0.72;
+  mix-blend-mode: multiply;
+}
+
+.theme-engraving .hero > * {
+  position: relative;
+  z-index: 1;
+}
+
+.theme-engraving .engraving-divider {
+  position: relative;
+  height: clamp(88px, 14vw, 160px);
+  margin: 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  background:
+    linear-gradient(
+      180deg,
+      var(--background) 0%,
+      transparent 28%,
+      transparent 72%,
+      var(--background) 100%
+    ),
+    url("/engraving/divider.webp") center / cover no-repeat;
+  opacity: 0.9;
+  mix-blend-mode: multiply;
+}
+
+.theme-engraving .engraving-divider-soft {
+  height: clamp(64px, 10vw, 110px);
+  opacity: 0.7;
+}
+
+.theme-engraving .static-page {
+  background: var(--background);
+}
+
+.theme-engraving .static-page-inner {
+  border: 1px solid var(--ink);
+  border-radius: 0;
+  padding: 36px 32px;
+  background: var(--surface);
+  box-shadow:
+    4px 4px 0 color-mix(in srgb, var(--ink) 12%, transparent),
+    inset 0 0 0 3px var(--surface),
+    inset 0 0 0 4px color-mix(in srgb, var(--ink) 18%, transparent);
+}
+
+.theme-engraving .static-page-lede,
+.theme-engraving .static-page-body {
+  color: var(--muted);
+}
+
+.theme-engraving .static-page-body a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* Override orange gradients that ignore CSS variables */
+.theme-engraving .architecture-step > span,
+.theme-engraving .wallet-sheet-avatar,
+.theme-engraving .result-options article.recommended b,
+.theme-engraving .canvas-live {
+  background: var(--ink) !important;
+  background-image: none !important;
+}
+
+@media (max-width: 900px) {
+  .theme-engraving .engraving-hero-art {
+    width: 100%;
+    height: 46%;
+    inset: auto 0 0 0;
+    opacity: 0.38;
+    background:
+      linear-gradient(
+        180deg,
+        var(--background) 0%,
+        color-mix(in srgb, var(--background) 40%, transparent) 35%,
+        transparent 60%
+      ),
+      url("/engraving/hero.webp") center bottom / cover no-repeat;
+  }
+
+  .theme-engraving .engraving-divider {
+    height: 72px;
+  }
+}

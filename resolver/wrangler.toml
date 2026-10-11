@@ -1,0 +1,18 @@
+name = "universal-payment-resolver"
+main = "src/index.ts"
+compatibility_date = "2026-08-01"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "rezva-registry"
+migrations_dir = "../registry/migrations"
+
+[vars]
+REGISTRATION_SAFETY_SECONDS = "0"
+UPDATE_SAFETY_SECONDS = "0"
+REMOVAL_COOLDOWN_SECONDS = "300"
+DEV_PROVIDER_KEY = "dev-provider-key"
+
+[dev]
+port = 8788
+persist_to = "../.wrangler-state"

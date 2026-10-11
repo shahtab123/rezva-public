@@ -1,0 +1,35 @@
+# Dependencies / build
+node_modules/
+.next/
+out/
+dist/
+build/
+coverage/
+*.tsbuildinfo
+next-env.d.ts
+
+# Env / secrets
+.env
+.env.*
+!.env.example
+.infisical/
+registry/.dev.vars
+registry/.prod.vars
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.log
+npm-debug.log*
+
+# Misc
+.turbo/
+.vercel/
+.wrangler/
+.wrangler-state/
+.wrangler-state.localtest/
+.wrangler-state*/
+.tmp-rabby*/
+website/.data/

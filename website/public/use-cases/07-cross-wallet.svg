@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 320" role="img" aria-label="Cross-wallet resolution">
+  <rect width="1200" height="320" fill="#111827"/>
+  <rect x="72" y="96" width="200" height="128" rx="22" fill="#ff2d6a"/>
+  <text x="118" y="178" fill="#ffffff" font-family="Georgia, serif" font-size="64" font-weight="700">07</text>
+  <text x="320" y="148" fill="#ffffff" font-family="system-ui, sans-serif" font-size="36" font-weight="700">Cross-wallet resolution</text>
+  <text x="320" y="196" fill="#f9a8d4" font-family="ui-monospace, monospace" font-size="22">one lookup across wallets</text>
+  <rect x="820" y="100" width="120" height="120" rx="18" fill="#ffffff" fill-opacity="0.08" stroke="#ff2d6a" stroke-width="4"/>
+  <text x="868" y="170" fill="#ffb3c9" font-family="system-ui, sans-serif" font-size="28" font-weight="700">A</text>
+  <path d="M960 160 H1020" stroke="#ffffff" stroke-width="8" stroke-linecap="round"/>
+  <path d="M1008 144 L1028 160 L1008 176" fill="none" stroke="#ffffff" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="1040" y="100" width="120" height="120" rx="18" fill="#ffffff" fill-opacity="0.08" stroke="#38bdf8" stroke-width="4"/>
+  <text x="1088" y="170" fill="#7dd3fc" font-family="system-ui, sans-serif" font-size="28" font-weight="700">B</text>
+</svg>

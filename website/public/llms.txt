@@ -1,0 +1,27 @@
+# Rezva
+
+> Wallet-agnostic payment-identifier resolution into crypto payment destinations.
+
+## Start here
+
+- [Wallet quickstart](/docs/for-wallets/quickstart): integrate a wallet.
+- [SDKs and integration recipes](/docs/for-wallets/sdks): TypeScript-first examples and the end-to-end flow.
+- [Resolver API](/docs/for-wallets/api-reference): `POST /v1/resolve`.
+- [OpenAPI specification](/openapi.json): machine-readable API contract.
+- [Full LLM reference](/llms-full.txt): compact implementation context for AI agents.
+- [Free API and Test Merchant](/docs/dashboard/free-api): approval-free resolver testing.
+- [Test wallets](/docs/reference/compatible-wallets): Mobile wallet ([mobilewallet_rezva](https://github.com/shahtab123/mobilewallet_rezva)) and Rabby Chrome clone ([rabby_chrome_rezva](https://github.com/shahtab123/rabby_chrome_rezva)).
+
+## Core rules
+
+- Resolve an identifier before displaying or sending a payment.
+- Require `status: "active"` and `payment_ready: true`.
+- Display chain, asset, token contract, network identifier, amount constraints, and destination.
+- The wallet signs and broadcasts payments; Rezva does not custody funds.
+- Universal Name Resolution: same `POST /v1/resolve` also resolves `.eth`, `.sol`, `.base`, and Unstoppable TLDs (API-side; no wallet client update when already calling resolve).
+- External crypto names are never registered in the Identifier Registry.
+- Free API keys are resolver-only and rate-limited.
+- The shared Test Merchant uses one persistent identifier and destination for all developers.
+- The prototype flow is: dashboard key → shared QR → `POST /v1/resolve` → Base Sepolia USDC transfer → receipt and explorer verification.
+- Provider namespace, identifier, and complaint mutations require approved provider access; identifier mutations also require controller authorization.
+- Dashboard Business / Users track: max 2 identifiers per controller (existing identifiers stay; new dashboard creates blocked at the limit). Wallet providers with Merchant Setup set their own per-controller limits.

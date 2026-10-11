@@ -1,0 +1,21 @@
+{
+  "name": "@universal-payment/resolver",
+  "version": "0.1.0",
+  "private": false,
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "@universal-payment/protocol": "0.1.0",
+    "@universal-payment/identifier-types": "0.1.0",
+    "@universal-payment/registry": "0.1.0"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^5",
+    "typescript": "^5",
+    "wrangler": "^4"
+  }
+}

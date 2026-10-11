@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 320" role="img" aria-label="Wallet namespaces">
+  <rect width="1200" height="320" fill="#171014"/>
+  <circle cx="1040" cy="40" r="160" fill="#ff2d6a" fill-opacity="0.16"/>
+  <rect x="72" y="96" width="200" height="128" rx="22" fill="#ff2d6a"/>
+  <text x="118" y="178" fill="#ffffff" font-family="Georgia, serif" font-size="64" font-weight="700">01</text>
+  <text x="320" y="148" fill="#ffffff" font-family="system-ui, sans-serif" font-size="40" font-weight="700">Wallet namespaces</text>
+  <text x="320" y="196" fill="#ffb3c9" font-family="ui-monospace, monospace" font-size="22">person name + wallet brand</text>
+  <rect x="820" y="118" width="280" height="84" rx="18" fill="#ffffff" fill-opacity="0.08"/>
+  <text x="848" y="154" fill="#ffb3c9" font-family="ui-monospace, monospace" font-size="18">name</text>
+  <text x="848" y="186" fill="#ffffff" font-family="ui-monospace, monospace" font-size="26">shahtab.rabby</text>
+</svg>
